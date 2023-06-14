@@ -12,12 +12,13 @@
 		<table style="width:100%">
 			<tr>
 			<th>Name</th>
-			<th>Note</th>
+			<th>Notes</th>
 			
 			</tr>
-			{%for participant in data%}
+			{%for n in data%}
 			<tr>
-				<td>{{participant[0]}}</td>
+				<td>{{n[0]}}</td>
+                 <td>{{n[1]}}</td>
 				</tr>
 			{%endfor%}
 		</table>		
