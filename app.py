@@ -8,9 +8,9 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 
 import sqlite3
 
-connection = sqlite3.connect("database.db")
+connection = sqlite3.connect("database.db", check_same_thread=False)
 cursor = connection.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS USER(userid INT PRIMARY KEY, email TEXT, password TEXT,firstname TEXT)")
+cursor.execute("CREATE TABLE IF NOT EXISTS USER(userid INT PRIMARY KEY, email TEXT, password TEXT,first_name TEXT)")
 
 cursor.execute("CREATE TABLE IF NOT EXISTS NOTE (noteid INT PRIMARY KEY, name TEXT, note TEXT ,userid INT,FOREIGN KEY (userid) REFERENCES USER(userid))")
 @app.route("/loginsession")
@@ -37,14 +37,16 @@ def loginhere():
         # getting input with name = fname in HTML form
         email = request.form["email"]
         password = request.form["password"]
-        with sqlite3.connect("database.db") as users:
+        with sqlite3.connect("database.db", check_same_thread=False) as users:
                 cursor = users.cursor()
             
             # cursor.execute
-                user=cursor.execute('SELECT email FROM USER u WHERE email=u.email')
-                pwd=cursor.execute('SELECT email FROM USER u WHERE password=u.password')
-    
-        if user==email and password==pwd:
+                emaildb=cursor.execute("SELECT * FROM user WHERE email = ?", (email,))
+                pwddb=cursor.execute("SELECT * FROM user WHERE password = ?", (password,))
+        print(emaildb,pwddb)
+
+        if emaildb and pwddb:
+             print("checking confirm")
              session["email"]=email
              return render_template("join.html")
         else:
@@ -54,7 +56,11 @@ def loginhere():
 def logout():
     session["email"] = None
     return render_template("/login")
-        
+def get_user(email):
+   
+                    
+    cursor.execute("SELECT * FROM user WHERE email = ?", (email,))
+    return cursor.fetchone()       
 
 @app.route('/register', methods =["GET", "POST"])
 def register():
@@ -65,14 +71,12 @@ def register():
         password1 = request.form["password1"]
         password2 = request.form["password2"]
         print(email,firstname)
-        with sqlite3.connect("database.db") as users:
-            cursor = users.cursor()
         
         # cursor.execute
-            print(cursor.execute('SELECT * FROM USER u WHERE email=u.email'))
-            user=cursor.execute('SELECT * FROM USER u WHERE email=u.email')
-    
-        if user:
+        # if get_user(email):
+        #     return "Username already taken"
+        
+        if get_user(email):
             flash('Email already exists.', category='error')
         elif len(email) < 4:
             flash('Email must be greater than 3 characters.', category='error')
@@ -83,20 +87,20 @@ def register():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
+            print("entered db else")
             with sqlite3.connect("database.db") as users:
-                
+                print("entered db connection")
                 cursor = users.cursor()
-                
+                print("connected to db")
             # cursor.execute
-                cursor.execute("INSERT INTO USER (email,firstname,password) VALUES (?,?,?)",
-                           (email,firstname,password1))
+                cursor.execute("INSERT INTO user (email,first_name, password) VALUES (?, ?, ?)", (email,firstname, password1))
                 print("inserted")
                 users.commit()
                 print("User create succeesfully")
             # db.session.add(new_user)
             # db.session.commit()
             
-            flash('Account created!', category='success')
+                flash('Account created!', category='success')
             return render_template("login.html")
     else:
          return render_template("registration.html")
@@ -110,7 +114,7 @@ def addnote():
         note = request.form["note"]
         # print(note)
 
-        with sqlite3.connect("database.db") as users:
+        with sqlite3.connect("database.db", check_same_thread=False) as users:
             cursor = users.cursor()
             cursor.execute("INSERT INTO NOTES \
             (name,note) VALUES (?,?)",
@@ -122,7 +126,7 @@ def addnote():
         return render_template('join.html')
 @app.route('/opennotes')
 def opennotes():
-    connect = sqlite3.connect('database.db')
+    connect = sqlite3.connect('database.db', check_same_thread=False)
     cur = connect.cursor()
     print("Cursor created")
     statement='''SELECT * FROM NOTES'''
