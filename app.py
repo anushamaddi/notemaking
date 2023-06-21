@@ -54,11 +54,11 @@ def loginhere():
             return render_template("registration.html")             
 @app.route("/logout")
 def logout():
+    print("Entered here")
     session["email"] = None
-    return render_template("/login")
-def get_user(email):
-   
-                    
+    print("session expired")
+    return render_template("authenticate.html")
+def get_user(email):                
     cursor.execute("SELECT * FROM user WHERE email = ?", (email,))
     return cursor.fetchone()       
 

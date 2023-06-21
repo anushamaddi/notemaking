@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 	<head>
 		<title>Flask and SQLite </title>
@@ -12,4 +12,114 @@
 			<input type = "submit" value = "submit"/><br/>
 		</form>
 	</body>
+</html> -->
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href=
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
+	</script>
+	<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+	</script>
+	<script src=
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+	</script>
+</head>
+<body>
+	<header>
+		<div class="container">
+			<h1 style="color: green">Note Making</h1>
+			<strong>Welcome,Lets start the habit of making notes</strong>
+		</div>
+	</header>
+	<footer>
+		<hr/>
+		
+		
+		<form style="text-align:center;" action="/addnote" method="POST">
+			
+        <div class="container">
+        <div class="row">
+            <div class="bg bg-primary w-100">
+				
+				<label>Enter Heading:</label>
+				<input type="name" name="name" placeholder="Enter your name" required><br/>
+				<label>Enter Note:</label>
+				<input type="text area" name="note" placeholder="Enter your note here" required><br/>
+				<input type = "submit" value = "submit"/><br/>
+				
+					
+				
+            </div>
+        </div>
+	</form>
+        <!-- <div class="row">
+            <div class="bg bg-success w-100">
+                Second row
+            </div>
+        </div>
+        <div class="row">
+            <div class="bg bg-primary w-100">
+                Third row
+            </div>
+        </div>
+        <div class="row">
+            <div class="bg bg-success w-100">
+                Fourth row
+            </div> -->
+        <!-- </div> -->
+        <!-- <div class="container">
+            <div class="row">
+                <div class="col-xs-2 col-sm-6 col-md-3 
+                col-lg-4 col-xl-6">
+                <div class="well bg bg-danger">
+                    1st Column
+                </div>
+            </div>
+            <div class="col-xs-2 col-sm-6 col-md-3 
+                    col-lg-4 col-xl-6">
+                <div class="well bg bg-warning">
+                    2nd Column
+                </div>
+            </div>
+            <div class="col-xs-2 col-sm-6 col-md-3 
+                    col-lg-4 col-xl-6">
+                <div class="well bg bg-secondary">
+                    3rd Column
+                </div>
+            <div class="col-xs-2 col-sm-6 col-md-3 
+            col-lg-4 col-xl-6">
+                <div class="well bg bg-primary">
+                    4th Column
+                </div>
+            </div> -->
+            <!-- </div>
+            </div>
+            </div>
+        </div> -->
+        
+    </div>
+		<div class="container">
+			<p>
+				<a href="https://www.geeksforgeeks.org/">
+					Visit
+				</a>
+				our website
+			</p>
+			<p>
+				<a href="https://www.geeksforgeeks.org/">
+					Like
+				</a>
+				us on facebook
+			</p>
+		</div>
+	</footer>
+</body>
 </html>
