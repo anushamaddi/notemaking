@@ -41,7 +41,12 @@
 	</header>
 	<footer>
 		<hr/>
+		{% if session['email'] %}
 		
+                <h1>Welcome {{ session['email'] }}!</h1>
+            {% else %}
+                <h1>Welcome! Please enter your email <a href="{{ url_for('login') }}">here.</a></h1>
+        {% endif %}
 		
 		<form style="text-align:center;" action="/addnote" method="POST">
 			

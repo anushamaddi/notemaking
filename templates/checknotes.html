@@ -15,12 +15,19 @@
 			<th>Notes</th>
 			
 			</tr>
-			{%for n in data%}
+			{% if session['email'] %}
+		
+                <h1>Welcome {{ session['email'] }}!</h1>
+				{%for n in data%}
 			<tr>
 				<td>{{n[0]}}</td>
                  <td>{{n[1]}}</td>
 				</tr>
-			{%endfor%}
+				{%endfor%}
+            {% else %}
+                <h1>Session Expired Login Again <a href="{{ url_for('login') }}">here.</a></h1>
+        {% endif %}
+			
 		</table>		
 	</body>
 </html>
